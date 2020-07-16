@@ -5,6 +5,7 @@ int A[10];
 int sz;
 int length;
 };
+
 void Display(struct Array arr)
 {
     int i;
