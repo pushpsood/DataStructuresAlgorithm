@@ -73,5 +73,6 @@ int main()
     start=create(start,7);
     start=create(start,8);
     start=InsertS(start,0);
+    start=InsertS(start,100);
     display(start);
 }
