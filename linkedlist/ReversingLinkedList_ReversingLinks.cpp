@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -34,23 +35,20 @@ void display(struct Node *p)
     }
     cout<<endl;
 }
-void Reverse(struct Node *p)
+struct Node *Reverse(struct Node *p)
 {
     struct Node *start=p;
-    vector<int> v;
+    struct Node *r=NULL;
+    struct Node *q=NULL;
     while(p)
     {
-        v.push_back(p->data);
+        r=q;
+        q=p;
         p=p->next;
+        q->next=r;
     }
-    p=start;
-    int i=v.size()-1;
-    while(p)
-    {
-        p->data=v[i--];
-        v.pop_back();
-        p=p->next;
-    }
+    start=q;
+    return start;
 }
 int main()
 {
@@ -64,6 +62,6 @@ int main()
     start=create(start,7);
     start=create(start,8);
     display(start);
-    Reverse(start);
+    start=Reverse(start);
     display(start);
 }
