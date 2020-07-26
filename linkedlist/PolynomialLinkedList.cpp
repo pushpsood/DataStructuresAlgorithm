@@ -61,5 +61,5 @@ int main()
     Display();
     int x;
     cin>>x;
-    cout<<Eval(1);
+    cout<<Eval(x);
 }
