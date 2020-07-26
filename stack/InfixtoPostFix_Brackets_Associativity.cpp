@@ -4,16 +4,36 @@
 using namespace std;
 int isOperand(char s)
 {
-    if(s=='+'||s=='-'||s=='*'||s=='/')
+    //^-Right to Left
+    if(s=='+'||s=='-'||s=='*'||s=='/'||'('||')'||'^')
         return 0;
     return 1;
 }
-int pre(char c)
+int preOut(char c)
 {
     if(c=='+'||c=='-')
         return 1;
     if(c=='*'||c=='/')
+        return 3;
+    if(c=='^')
+        return 6;
+    if(c=='(')
+        return 7;
+    if(c==')')
+        return 0;
+}
+int preIn(char c)
+{
+    if(c=='+'||c=='-')
         return 2;
+    if(c=='*'||c=='/')
+        return 4;
+    if(c=='^')
+        return 5;
+    if(c=='(')
+        return 0;
+    if(c==')')
+        return 0;
 }
 char *Convert(char *s)
 {
@@ -29,7 +49,12 @@ char *Convert(char *s)
         {
             if(st.empty())
                 st.push(s[i++]);
-            else if(pre(s[i])>pre(st.top()))
+            else if(preOut(s[i])==preIn(st.top()))
+            {
+                st.pop();
+                i++;
+            }
+            else if(preOut(s[i])>preIn(st.top()))
                 st.push(s[i++]);
             else
             {
@@ -48,7 +73,7 @@ char *Convert(char *s)
 }
 int main()
 {
-    char *s="a+b+b/a*b-a+b";
+    char *s="((a+b)+b/a*b+a+b)-a";
     s=Convert(s);
     cout<<s;
 }
