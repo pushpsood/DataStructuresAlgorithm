@@ -3,7 +3,6 @@ using namespace std;
 class Queue
 {
 public:
-
     int data;
     Queue *next;
 }*f=NULL,*r=NULL;
