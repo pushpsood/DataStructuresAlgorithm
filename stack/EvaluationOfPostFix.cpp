@@ -60,6 +60,6 @@ int Eval(char *s)
 }
 int main()
 {
-    char *s="12+45/7*+8-8+";
+    char *s="234*+82/-";
     cout<<Eval(s);
 }
