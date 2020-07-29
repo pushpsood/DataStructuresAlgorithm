@@ -60,6 +60,15 @@ void inorder(Node *p)
     }
     return;
 }
+void preorder(Node *p)
+{
+    if(p)
+    {
+        cout<<p->data<<" ";
+        preorder(p->left);
+        preorder(p->right);
+    }
+}
 int main()
 {
     root=Insert(root,4);
@@ -69,6 +78,8 @@ int main()
     Insert(root,40);
     levelorder(root);
     cout<<endl;
-    inorder(root);
+    inorder(root);cout<<endl;
+    preorder(root);
+
 
 }
