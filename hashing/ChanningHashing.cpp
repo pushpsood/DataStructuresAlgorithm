@@ -30,7 +30,6 @@ Node * SortedInsert(Node *p,int x)
     t->next=q->next;
     q->next=t;
     return a;
-    cout<<"gfh";
 }
 
 Insert(Node *A[],int data)
@@ -51,6 +50,10 @@ int main()
     Insert(A,102);
     Insert(A,102);
     Insert(A,102);
+    Insert(A,50);
+    Insert(A,150);
+    Insert(A,70);
+    Insert(A,30);
 
     for(int i=0;i<10;i++)
     {
