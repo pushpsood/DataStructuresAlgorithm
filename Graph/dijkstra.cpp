@@ -3,9 +3,6 @@
 #include <queue>
 
 using std::vector;
-using std::queue;
-using std::pair;
-using std::priority_queue;
 
 bool check_empty(vector<int> d)
 {
@@ -19,7 +16,7 @@ bool check_empty(vector<int> d)
 
 int extract_min(vector<int> &d)
 {
-    int m=INT_MAX;
+    int m=1000005;
     int pos;
     for(int i=0;i<d.size();i++)
     {
