@@ -10,11 +10,36 @@ using std::string;
 typedef map<char, int> edges;
 typedef vector<edges> trie;
 
+
 trie build_trie(vector<string> & patterns) {
-  trie t;
-  // write your code here
-  return t;
+    trie t;
+    edges root;
+    t.push_back(root);
+    int nodeNum = 0;
+    for (auto & pattern : patterns)
+    {
+        int currentNode = 0;
+        for (int i = 0; i < pattern.length(); i++)
+        {
+            char currentSymbol = pattern[i];
+            auto edgeIt = t[currentNode].find(currentSymbol);
+            if(edgeIt != t[currentNode].end())
+            {
+                currentNode = edgeIt->second;
+            }
+            else
+            {
+                t[currentNode][currentSymbol] = ++nodeNum;
+                edges temp;
+                t.push_back(temp);
+                currentNode = nodeNum;
+            }
+        }
+    }
+    return t;
 }
+
+
 
 int main() {
   size_t n;
