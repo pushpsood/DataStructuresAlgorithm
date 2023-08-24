@@ -34,19 +34,71 @@ int letterToIndex (char letter)
 	}
 }
 
-vector <int> solve (string text, int n, vector <string> patterns)
+vector<Node> buildTrie(const vector <string>& patterns)
 {
-	vector <int> result;
+    vector<Node> t;
+    Node root;
+    t.push_back(root);
+    int nodeCount = 0;
+    for(auto pattern : patterns)
+    {
+        int currentNode = 0;
+        for(int i=0;i<pattern.length();i++)
+        {
+            int currentLetterIndex = letterToIndex(pattern[i]);
+            if(t[currentNode].next[currentLetterIndex] != NA)
+            {
+                currentNode = t[currentNode].next[currentLetterIndex];
+            }
+            else
+            {
+                t[currentNode].next[currentLetterIndex] = ++nodeCount;
+                Node node;
+                t.push_back(node);
+                currentNode = nodeCount;
+            }
+        }
+        t[currentNode].patternEnd = true;
+    }
+    return t;
+}
 
-	// write your code here
 
-	return result;
+
+bool trieMatching(const string& text, int pos, const vector<Node>& trie)
+{
+    int trieIndex = 0;
+    for(int i=pos;i<text.size();i++)
+    {
+        if(trie[trieIndex].next[letterToIndex(text[i])] != -1 && trie[trie[trieIndex].next[letterToIndex(text[i])]].patternEnd)
+        {
+            return true;
+        }
+        else if (trie[trieIndex].next[letterToIndex(text[i])] == -1) return false;
+        trieIndex = trie[trieIndex].next[letterToIndex(text[i])];
+    }
+    return false;
+}
+
+
+vector <int> solve (const string& text, int n, const vector <string>& patterns)
+{
+    vector <int> result;
+
+    vector<Node> trie = buildTrie(patterns);
+
+    for(int i=0;i<text.size();i++)
+    {
+        if(trieMatching(text, i, trie)) result.push_back(i);
+    }
+
+    return result;
 }
 
 int main (void)
 {
 	string t;
-	cin >> text;
+	cin >> t;
 
 	int n;
 	cin >> n;
@@ -58,7 +110,7 @@ int main (void)
 	}
 
 	vector <int> ans;
-	ans = solve (t, n, s);
+	ans = solve (t, n, patterns);
 
 	for (int i = 0; i < (int) ans.size (); i++)
 	{
